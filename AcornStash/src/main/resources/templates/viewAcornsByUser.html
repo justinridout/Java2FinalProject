@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Acorns </title>
+</head>
+<body>
+<form>
+		<table>
+			<tr th:each="currentAcorn : ${acorns}">
+				<td th:text="${currentAcorn.name}" />
+				<td th:text="${currentAcorn.category}" />
+				<td th:text="${currentAcorn.replacementCost}" />
+				<td th:text="${currentAcorn.purchaseDate}" />
+				<td th:text="${currentAcorn.lifeCycle}" />
+				<td th:text="${currentAcorn.ageInMonths}" />
+				<td th:text="${currentAcorn.remainingLifePercentage}" />
+				<td th:text="${currentAcorn.actualCashValue}" />
+				<td><a th:href="@{/viewAcornDetails/{name}(name=${currentAcorn.name})}">View Details</a></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
