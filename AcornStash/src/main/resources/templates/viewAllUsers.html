@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View All Acorns</title>
+</head>
+<body>
+<form>
+		<table>
+			<tr th:each="currentUser : ${users}">
+				<td th:text="${currentUser.id}" />
+				<td th:text="${currentUser.firstName}" />
+				<td th:text="${currentUser.lastName}" />
+				<td th:text="${currentUser.cashBalance}" />
+				<td th:text="${currentUser.savingsNeeded}" />
+				<td><a th:href="@{/view/{id}(id=${currentUser.id})}">View User Acorns</a></td>
+				
+			</tr>
+		</table>
+	</form>
+	<a href="../addAcorn">Add a new acorn</a>
+</body>
+</html>
