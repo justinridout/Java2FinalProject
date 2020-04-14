@@ -13,6 +13,7 @@ import javax.persistence.Id;
 public class Acorn {
 	private String name;
 	private BigDecimal replacementCost;
+	private String category;
 	private Date purchaseDate;
 	private int lifeCycle;
 	private int ageInMonths;
@@ -76,10 +77,20 @@ public class Acorn {
 		return actualCashValue;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
-		return "Acorn [name=" + name + ", replacementCost=" + replacementCost + ", purchaseDate=" + purchaseDate
-				+ ", lifeCycle=" + lifeCycle + ", ageInMonths=" + ageInMonths + ", remainingLifePercentage="
-				+ remainingLifePercentage + ", actualCashValue=" + actualCashValue + "]";
+		return "Acorn [name=" + name + ", replacementCost=" + replacementCost + ", category=" + category
+				+ ", purchaseDate=" + purchaseDate + ", lifeCycle=" + lifeCycle + ", ageInMonths=" + ageInMonths
+				+ ", remainingLifePercentage=" + remainingLifePercentage + ", actualCashValue=" + actualCashValue + "]";
 	}
+
+	
 }
