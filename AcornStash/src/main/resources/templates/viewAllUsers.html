@@ -5,8 +5,7 @@
 <title>View All Acorns</title>
 </head>
 <body>
-<form>
-		<table>
+  		<table>
 			<tr th:each="currentUser : ${users}">
 				<td th:text="${currentUser.id}" />
 				<td th:text="${currentUser.firstName}" />
@@ -17,7 +16,14 @@
 				
 			</tr>
 		</table>
-	</form>
-	<a href="../addAcorn">Add a new acorn</a>
+	
+	
+<form th:object="${newUser}" th:action="@{/update/{ID}(ID=${newUser.ID})}" method=POST>
+First Name: <input name="firstName" size="20" th:field="*{firstName}"><br />
+Last Name: <input name="lastName" size="20" th:field="*{lastName}"><br />
+<input name="submit" type="submit" value="submit" />
+</form>
+
+
 </body>
 </html>

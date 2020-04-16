@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:object="${newUser}" th:action="@{/update/{ID}(ID=${newUser.ID})}" method=POST>
+		First Name: <input name="firstName" size="20" th:field="*{firstName}"><br />
+		Last Name: <input name="lastName" size="20" th:field="*{lastName}"><br />
+		<input name="submit" type="submit" value="submit" />
+	</form>
+</body>
+</html>
