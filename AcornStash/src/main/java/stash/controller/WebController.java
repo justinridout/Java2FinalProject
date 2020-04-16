@@ -19,49 +19,45 @@ public class WebController {
 
 	@Autowired
 	AcornRepository repo;
-	
-	@GetMapping({"viewAllUsers" })
+
+	@GetMapping({ "viewAllUsers" })
 	public String viewAllUsers(Model model) {
 		if (repo.findAll().isEmpty()) {
 			return "index";
 		}
-		
-		List<User> allUsers = repo.findAll();
-		model.addAttribute("users", allUsers);
+
+		model.addAttribute("users", repo.findAll());
 		return "viewAllUsers";
 	}
-		
+
 	@GetMapping("/view/{id}")
 	public String viewAcornByUser(@PathVariable("ID") long id, Model model) {
 		User u = repo.findById(id).orElse(null);
-		
+
 		List<Acorn> userAcorns = u.getAcornList();
-		
+
 		model.addAttribute("acorns", userAcorns);
 		return "viewAcornsByUser";
 	}
-	//ADD VIEW ACORN DETAILS
-	
+	// ADD VIEW ACORN DETAILS
+
 	@GetMapping("/addUser")
 	public String addNewUser(Model model) {
-		User u = new User(); 
-		model.addAttribute("newUser", u); 
-	return "viewAllUsers";
+		User u = new User();
+		model.addAttribute("newUser", u);
+		return "viewAllUsers";
 	}
 
 	@PostMapping("/addUser")
-	public String addNewUser(@ModelAttribute User u,
-	Model model) {
-	repo.save(u);
-	     return viewAllUsers(model);
+	public String addNewUser(@ModelAttribute User u, Model model) {
+		repo.save(u);
+		return viewAllUsers(model);
 	}
-	
+
 	@PostMapping("/update/{ID}")
 	public String updateUser(User user, Model model) {
 		repo.save(user);
-	return viewAllUsers(model);
+		return viewAllUsers(model);
 	}
 
-
-	
 }

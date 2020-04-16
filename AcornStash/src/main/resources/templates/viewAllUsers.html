@@ -5,25 +5,21 @@
 <title>View All Acorns</title>
 </head>
 <body>
-  		<table>
+	<form>
+		<table>
 			<tr th:each="currentUser : ${users}">
-				<td th:text="${currentUser.id}" />
+				<td th:text="${currentUser.ID}" />
 				<td th:text="${currentUser.firstName}" />
 				<td th:text="${currentUser.lastName}" />
 				<td th:text="${currentUser.cashBalance}" />
-				<td th:text="${currentUser.savingsNeeded}" />
-				<td><a th:href="@{/view/{id}(id=${currentUser.id})}">View User Acorns</a></td>
-				
+				<td th:text="${currentUser.savingsNeed}" />
+				<td><a th:href="@{/view/{id}(id=${currentUser.ID})}">View
+						User Acorns</a></td>
+
 			</tr>
 		</table>
-	
-	
-<form th:object="${newUser}" th:action="@{/update/{ID}(ID=${newUser.ID})}" method=POST>
-First Name: <input name="firstName" size="20" th:field="*{firstName}"><br />
-Last Name: <input name="lastName" size="20" th:field="*{lastName}"><br />
-<input name="submit" type="submit" value="submit" />
-</form>
 
+	</form>
 
 </body>
 </html>

@@ -2,12 +2,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Add User</title>
 </head>
 <body>
-	<form th:object="${newUser}" th:action="@{/update/{ID}(ID=${newUser.ID})}" method=POST>
+	<form th:object="${newUser}" th:action="@{/addUser}" method=POST>
 		First Name: <input name="firstName" size="20" th:field="*{firstName}"><br />
 		Last Name: <input name="lastName" size="20" th:field="*{lastName}"><br />
+		Cash Balance: <input name= "cashBalance" size="20" th:field="*{cashBalance}"><br />
+		Savings Need: <input name= "savingsNeed" size="20" th:field="*{savingsNeed}"><br />
 		<input name="submit" type="submit" value="submit" />
 	</form>
 </body>
