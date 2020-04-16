@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,13 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public User(long iD, String firstName, String lastName) {
+		super();
+		ID = iD;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public User(String firstName, String lastName, BigDecimal cashBalance, BigDecimal savingsNeed,
@@ -57,9 +65,11 @@ public class User {
 		return lastName;
 	}
 
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 
 	public BigDecimal getCashBalance() {
 		return cashBalance;
