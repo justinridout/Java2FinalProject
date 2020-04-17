@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,13 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public User(String firstName, String lastName, BigDecimal cashBalance) {
+		super();
+		this.cashBalance = cashBalance;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public User(String firstName, String lastName, BigDecimal cashBalance, BigDecimal savingsNeed,
@@ -57,9 +65,11 @@ public class User {
 		return lastName;
 	}
 
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 
 	public BigDecimal getCashBalance() {
 		return cashBalance;
@@ -69,8 +79,23 @@ public class User {
 		this.cashBalance = cashBalance;
 	}
 
+	public void updateSavingsNeed() {
+		
+		this.savingsNeed = new BigDecimal(0);
+		
+		if(!this.acornList.isEmpty()) {
+			for(Acorn a : this.acornList) {
+				this.savingsNeed = this.savingsNeed.add((a.getReplacementCost().subtract(a.getActualCashValue())));
+			}
+		}
+		
+	}
+	
 	public BigDecimal getSavingsNeed() {
-		return savingsNeed;
+		
+		System.out.println("USING GETTERS");
+		updateSavingsNeed();
+		return this.savingsNeed;
 	}
 
 	public void setSavingsNeed(BigDecimal savingsNeed) {
@@ -84,6 +109,11 @@ public class User {
 	public void setAcornList(List<Acorn> acornList) {
 		this.acornList = acornList;
 	}
+	
+	public void addAcorn(Acorn a) {
+		this.acornList.add(a);
+	}
+
 
 	@Override
 	public String toString() {

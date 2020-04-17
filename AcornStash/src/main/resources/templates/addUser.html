@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add User</title>
+</head>
+<body>
+	<form th:object="${newUser}" th:action="@{/addUser}" method=POST>
+		First Name: <input name="firstName" size="20" th:field="*{firstName}"><br />
+		Last Name: <input name="lastName" size="20" th:field="*{lastName}"><br />
+		Cash Balance: <input name= "cashBalance" size="20" th:field="*{cashBalance}"><br />
+		
+		<input name="submit" type="submit" value="submit" />
+	</form>
+</body>
+</html>
