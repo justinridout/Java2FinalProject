@@ -28,9 +28,9 @@ public class User {
 		super();
 	}
 
-	public User(long iD, String firstName, String lastName) {
+	public User(String firstName, String lastName, BigDecimal cashBalance) {
 		super();
-		ID = iD;
+		this.cashBalance = cashBalance;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -79,8 +79,23 @@ public class User {
 		this.cashBalance = cashBalance;
 	}
 
+	public void updateSavingsNeed() {
+		
+		this.savingsNeed = new BigDecimal(0);
+		
+		if(!this.acornList.isEmpty()) {
+			for(Acorn a : this.acornList) {
+				this.savingsNeed = this.savingsNeed.add((a.getReplacementCost().subtract(a.getActualCashValue())));
+			}
+		}
+		
+	}
+	
 	public BigDecimal getSavingsNeed() {
-		return savingsNeed;
+		
+		System.out.println("USING GETTERS");
+		updateSavingsNeed();
+		return this.savingsNeed;
 	}
 
 	public void setSavingsNeed(BigDecimal savingsNeed) {
@@ -94,6 +109,11 @@ public class User {
 	public void setAcornList(List<Acorn> acornList) {
 		this.acornList = acornList;
 	}
+	
+	public void addAcorn(Acorn a) {
+		this.acornList.add(a);
+	}
+
 
 	@Override
 	public String toString() {

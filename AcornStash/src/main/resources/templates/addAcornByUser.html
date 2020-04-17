@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form th:object="${newAcorn}" th:action="@{/addAcornByUser/{ID}(ID=${currentUser.ID})}" method=POST>
+		Name: <input name="name" size="20" th:field="*{name}"><br />
+		Replacement Cost: <input name="replacementCost" size="20" th:field="*{replacementCost}"><br />
+		Category: <input name= "category" size="20" th:field="*{category}"><br />
+		<!-- ADD DATE FIELD -->
+		Life Cycle: <input name= "lifeCycle" size="20" th:field="*{lifeCycle}"><br />
+		<input name="submit" type="submit" value="submit" />
+	</form>
+</body>
+</html>

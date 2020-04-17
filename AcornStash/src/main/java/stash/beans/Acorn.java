@@ -19,8 +19,8 @@ public class Acorn {
 	private String category;
 	private Date purchaseDate;
 	private int lifeCycle;
-	private int ageInMonths;
-	private double remainingLifePercentage;
+	private int ageInMonths = 3;
+	private int remainingLifePercentage;
 	private BigDecimal actualCashValue;	
 		
 	public Acorn() {
@@ -72,12 +72,17 @@ public class Acorn {
 		return ageInMonths;
 	}
 
-	public double getRemainingLifePercentage() {
+	public int getRemainingLifePercentage() {
+		
+		this.remainingLifePercentage = (int) (100 - (((double)ageInMonths/lifeCycle)* 100));
 		return remainingLifePercentage;
 	}
 
 	public BigDecimal getActualCashValue() {
-		return actualCashValue;
+		System.out.println("Replacement cost: " + replacementCost);
+		System.out.println("Age In Months: " + ageInMonths);
+		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));
+		return replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2);
 	}
 
 	public String getCategory() {

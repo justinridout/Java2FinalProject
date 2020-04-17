@@ -7,6 +7,15 @@
 <body>
 <form>
 		<table>
+		<td>Name</td>
+		<td>Category</td>
+		<td>Replacement Cost</td>
+		<td>Purchase Date</td>
+		<td>Life Cycle</td>
+		<td>Age (in months)</td>
+		<td>Remaining Life Percentage</td>
+		<td>Actual Cash Value</td>
+		
 			<tr th:each="currentAcorn : ${acorns}">
 				<td th:text="${currentAcorn.name}" />
 				<td th:text="${currentAcorn.category}" />
@@ -15,10 +24,13 @@
 				<td th:text="${currentAcorn.lifeCycle}" />
 				<td th:text="${currentAcorn.ageInMonths}" />
 				<td th:text="${currentAcorn.remainingLifePercentage}" />
-				<td th:text="${currentAcorn.actualCashValue}" />
-				<td><a th:href="@{/viewAcornDetails/{name}(name=${currentAcorn.name})}">View Details</a></td>
+				<td th:text="${currentAcorn.actualCashValue}"/>
+				
 			</tr>
 		</table>
+		
+		<div style ="float:right;"> Savings Needs: $<span th:text="${currentUser.savingsNeed}"></span></div>
+		<a th:href="@{/addAcornByUser/{ID}(ID=${currentUser.ID})}">Add Acorn</a>
 	</form>
 </body>
 </html>

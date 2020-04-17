@@ -7,13 +7,18 @@
 <body>
 	<form>
 		<table>
+			<td>ID</td>
+			<td>First Name</td>
+			<td>Last Name</td>
+			<td>Cash balance</td>
+			<td>Savings Needed</td>
 			<tr th:each="currentUser : ${users}">
 				<td th:text="${currentUser.ID}" />
 				<td th:text="${currentUser.firstName}" />
 				<td th:text="${currentUser.lastName}" />
 				<td th:text="${currentUser.cashBalance}" />
 				<td th:text="${currentUser.savingsNeed}" />
-				<td><a th:href="@{/view/{id}(id=${currentUser.ID})}">View
+				<td><a th:href="@{/view/{ID}(ID=${currentUser.ID})}">View
 						User Acorns</a></td>
 
 			</tr>

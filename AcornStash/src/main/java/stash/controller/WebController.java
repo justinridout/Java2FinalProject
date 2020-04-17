@@ -30,22 +30,52 @@ public class WebController {
 		return "viewAllUsers";
 	}
 
-	@GetMapping("/view/{id}")
+	@GetMapping("/view/{ID}")
 	public String viewAcornByUser(@PathVariable("ID") long id, Model model) {
 		User u = repo.findById(id).orElse(null);
+		System.out.println(u);
 
 		List<Acorn> userAcorns = u.getAcornList();
 
 		model.addAttribute("acorns", userAcorns);
+		model.addAttribute("currentUser", repo.findById(id).orElse(null));
+		
 		return "viewAcornsByUser";
 	}
-	// ADD VIEW ACORN DETAILS
+	
+	@GetMapping("/addAcornByUser/{ID}")
+	public String addAcornByUser(@PathVariable("ID")long userId, Model model) {
+		Acorn a = new Acorn();
+		User u = repo.findById(userId).orElse(null);
+		model.addAttribute("newAcorn", a);
+		model.addAttribute("currentUser", u);
+		
+		
+		return "addAcornByUser";
+	}
+	
+	@PostMapping("/addAcornByUser/{ID}")
+	public String addAcornByUser(@PathVariable("ID") long id, @ModelAttribute Acorn a, Model model) {
+		User u = repo.findById(id).orElse(null);
+		u.addAcorn(a);
+		
+		repo.save(u);
+		
+		return viewAllUsers(model);
+	}
 
-	@GetMapping("/addUser")
+	/*@GetMapping("/addAcorn/{ID}")
+	public String addAcornByUser(@PathVariable("ID") long id, Model model) {
+		User u = repo.findById(id).orElse(null);
+		
+		
+	}*/
+
+	@GetMapping("addUser")
 	public String addNewUser(Model model) {
 		User u = new User();
 		model.addAttribute("newUser", u);
-		return "viewAllUsers";
+		return "addUser";
 	}
 
 	@PostMapping("/addUser")

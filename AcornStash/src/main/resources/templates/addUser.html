@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
 <title>Add User</title>
 </head>
 <body>
@@ -9,7 +9,7 @@
 		First Name: <input name="firstName" size="20" th:field="*{firstName}"><br />
 		Last Name: <input name="lastName" size="20" th:field="*{lastName}"><br />
 		Cash Balance: <input name= "cashBalance" size="20" th:field="*{cashBalance}"><br />
-		Savings Need: <input name= "savingsNeed" size="20" th:field="*{savingsNeed}"><br />
+		
 		<input name="submit" type="submit" value="submit" />
 	</form>
 </body>
