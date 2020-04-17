@@ -113,7 +113,10 @@ public class User {
 	public void addAcorn(Acorn a) {
 		this.acornList.add(a);
 	}
-
+	
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
 
 	@Override
 	public String toString() {
