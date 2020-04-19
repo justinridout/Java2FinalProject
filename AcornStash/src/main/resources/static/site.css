@@ -98,6 +98,20 @@ h1 {
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
 }
 
+.savingsWidget{
+	justify-content: center;
+	padding-top: 10px;
+	width:200px;
+	background-color: #ffbd99;
+	border: 1px solid black;
+	border-radius: 20px;
+	position: fixed;
+	right:50px;
+	top: 100px;
+	opacity: .7;
+}
+
+
 .acornItem h3 {
 	text-align: center;
 	margin: -5px 0 5px 0;
@@ -135,6 +149,16 @@ a.button:hover {
 }
 
 @media (max-width: 991px) {
+  
+  .savingsWidget{
+  	width:100%;
+  	position: static;
+  	right:0;
+  	top:0;
+	margin-bottom: 10px;
+	opacity:1;
+  
+  }
   
   header {
 	  padding: 0 20px;

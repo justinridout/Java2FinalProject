@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Embeddable
 public class Acorn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,7 @@ public class Acorn {
 	private String name;
 	private BigDecimal replacementCost;
 	private String category;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date purchaseDate;
 	private int lifeCycle;
 	private int ageInMonths = 3;
