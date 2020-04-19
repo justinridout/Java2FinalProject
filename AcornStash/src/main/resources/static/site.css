@@ -2,14 +2,14 @@
 	box-sizing: border-box;
 }
 
-.container{
+.container {
 	padding-top: 30px;
 	margin: 2px auto;
-	text-align:center;
+	text-align: center;
 }
 
 header {
-	position:absolute;
+	position: absolute;
 	top: 0;
 	left: 0;
 	padding: 0 100px;
@@ -17,51 +17,45 @@ header {
 	width: 100%;
 	box-sizing: border-box;
 }
-header .logo
-{
+
+header .logo {
 	color: white;
 	height: 50px;
 	line-height: 50px;
-	font-size:24px;
+	font-size: 24px;
 	float: left;
 	font-weight: bold;
 }
 
-header nav 
-{
+header nav {
 	float: right;
 }
 
-header nav ul
-{
+header nav ul {
 	margin: 0;
 	padding: 0;
 	display: flex;
 }
 
-header nav ul li
-{
+header nav ul li {
 	list-style: none;
 }
 
-header nav ul li a
-{
+header nav ul li a {
 	height: 50px;
-	line-height:50px;
+	line-height: 50px;
 	padding: 0 20px;
 	color: #fff;
-	text-decoration:none;
+	text-decoration: none;
 	display: block;
 }
 
-header nav ul li a:hover
-{
+header nav ul li a:hover {
 	color: black;
 	background: #ffd199;
 }
 
-.menu-toggle
-{
+.menu-toggle {
 	color: #fff;
 	float: right;
 	line-height: 50px;
@@ -98,19 +92,18 @@ h1 {
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
 }
 
-.savingsWidget{
+.savingsWidget {
 	justify-content: center;
 	padding-top: 10px;
-	width:200px;
+	width: 200px;
 	background-color: #ffbd99;
 	border: 1px solid black;
 	border-radius: 20px;
 	position: fixed;
-	right:50px;
+	right: 50px;
 	top: 100px;
 	opacity: .7;
 }
-
 
 .acornItem h3 {
 	text-align: center;
@@ -148,50 +141,43 @@ a.button:hover {
 	background-color: black;
 }
 
-@media (max-width: 991px) {
-  
-  .savingsWidget{
-  	width:100%;
-  	position: static;
-  	right:0;
-  	top:0;
-	margin-bottom: 10px;
-	opacity:1;
-  
-  }
-  
-  header {
-	  padding: 0 20px;
-  }
-  .menu-toggle
-  {
-	  display: block;
-  }
-  header nav 
-  {
-	  position: absolute;
-	  width: 100%;
-	  height: calc(100vh - 50px);
-	  background: #cf0000;
-	  top: 50px;
-	  left: -100%;
-	  transition: 0.5s;
-	  opacity: .95;
-  }
-  header nav.active
-  {
-	  left: 0;
-  }
-  
-  header nav ul
-  {
-	display: block;
-	text-align: center;
-  }
-  
-  header nav ul li a
-  {
-	  border-bottom: 1px solid rgba(0,0,0,.2);
-	  
-  }
+.pure-button:hover {
+	color: white;
+}
+
+@media ( max-width : 991px) {
+	.savingsWidget {
+		width: 100%;
+		position: static;
+		right: 0;
+		top: 0;
+		margin-bottom: 10px;
+		opacity: 1;
+	}
+	header {
+		padding: 0 20px;
+	}
+	.menu-toggle {
+		display: block;
+	}
+	header nav {
+		position: absolute;
+		width: 100%;
+		height: calc(100vh - 50px);
+		background: #cf0000;
+		top: 50px;
+		left: -100%;
+		transition: 0.5s;
+		opacity: .95;
+	}
+	header nav.active {
+		left: 0;
+	}
+	header nav ul {
+		display: block;
+		text-align: center;
+	}
+	header nav ul li a {
+		border-bottom: 1px solid rgba(0, 0, 0, .2);
+	}
 }

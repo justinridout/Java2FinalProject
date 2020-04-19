@@ -17,16 +17,68 @@
 <script>
 
 	function validateForm(){
-		var date = document.forms["form"]["purchaseDate"].value;
+		var letters = /^[A-Za-z]+$/;
 		
-		let year = date.substring(0,4);
-		let month = date.substring(5,7)
-		let day = date.substring(8);
-		let formattedDay = day + "/" + month +"/" + year
+		clearValidations();
 		
-		document.forms["form"]["purchaseDate"].value = formattedDay;
+		let flag = true;
 		
-		return true;
+		var name = document.forms["form"]["name"].value;
+		var replacementCost = document.forms["form"]["replacementCost"].value;
+		var category = document.forms["form"]["category"].value;
+		var lifeCycle = document.forms["form"]["lifeCycle"].value;
+		var purchaseDate = document.forms["form"]["purchaseDate"].value;
+		
+		if (name == ""){
+			document.getElementById("nameValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (!name.match(letters)) {
+			document.getElementById("nameValidation").innerHTML = "Cannot Have Numbers";
+			flag = false;
+		}
+		
+		if(replacementCost == ""){
+			document.getElementById("replacementValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (isNaN(replacementCost)) {
+			document.getElementById("replacementValidation").innerHTML = "Must be a number";
+			flag = false;
+		}
+		
+		if (category == ""){
+			document.getElementById("categoryValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (!category.match(letters)) {
+			document.getElementById("categoryValidation").innerHTML = "Cannot contain numbers";
+			flag = false;
+		}
+		if(lifeCycle <= 0){
+			document.getElementById("lifeCycleValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (isNaN(lifeCycle)) {
+			document.getElementById("lifeCycleValidation").innerHTML = "Must be a number";
+			flag = false;
+		}
+		if(!purchaseDate){
+			document.getElementById("dateValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		
+		return flag;
+		
+	}
+	
+	function clearValidations(){
+		document.getElementById("dateValidation").innerHTML = "";
+		document.getElementById("lifeCycleValidation").innerHTML = "";
+		document.getElementById("categoryValidation").innerHTML = "";
+		document.getElementById("replacementValidation").innerHTML = "";
+		document.getElementById("nameValidation").innerHTML = "";
+		
 	}
 
 </script>
@@ -65,42 +117,39 @@
 	<div class="container">
 		<div style="width: 75%; margin: 25px auto auto auto"
 			class="flex-container">
-			<form class="pure-form pure-form-aligned" name="form"  th:object="${newAcorn}"
+			<form class="pure-form pure-form-aligned" name="form" onsubmit="return validateForm()" th:object="${newAcorn}"
 				th:action="@{/addAcornByUser/{ID}(ID=${currentUser.ID})}"
 				method=POST>
 				<fieldset>
 					<div class="pure-control-group">
 						<label for="name">Name:</label> <input id="name" type="text"
-							placeholder="Name" th:field="*{name}"> <span
-							class="pure-form-message-inline">This is a required field.</span>
+							placeholder="Name" th:field="*{name}"> <span style="color:red" id="nameValidation"
+							class="pure-form-message-inline"></span>
 					</div>
 
 					<div class="pure-control-group">
 						<label for="replacementCost">Replacement Cost:</label> <input
 							id="replacementCost" type="text" placeholder="Replacement Cost"
-							th:field="*{replacementCost}"> <span
-							class="pure-form-message-inline">This is a required field.</span>
+							th:field="*{replacementCost}"> <span style="color:red" id="replacementValidation"
+							class="pure-form-message-inline"></span>
 					</div>
 
 					<div class="pure-control-group">
 						<label for="cashBalance">Category:</label> <input id="category"
 							type="text" placeholder="Category" th:field="*{category}">
-						<span class="pure-form-message-inline">This is a required
-							field.</span>
+						<span style="color:red" class="pure-form-message-inline" id="categoryValidation"></span>
 					</div>
 
 					<div class="pure-control-group">
 						<label for="lifeCycle">Life Cycle:</label> <input id="lifeCycle"
 							type="text" placeholder="lifeCycle" th:field="*{lifeCycle}">
-						<span class="pure-form-message-inline">This is a required
-							field.</span>
+						<span style="color:red" class="pure-form-message-inline" id="lifeCycleValidation"></span>
 					</div>
 					
 					<div class="pure-control-group">
 						<label for="purchaseDate">Purchase Date:</label> <input id="purchaseDate"
 							type="date" placeholder="Purchase Date" th:field="*{purchaseDate}">
-						<span class="pure-form-message-inline">This is a required
-							field.</span>
+						<span style="color:red" class="pure-form-message-inline" id="dateValidation"></span>
 					</div>
 
 					<button style="background: #cf0000;" name="submit" type="submit" value="submit"
