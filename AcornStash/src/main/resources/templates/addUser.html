@@ -14,6 +14,59 @@
 	integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47"
 	crossorigin="anonymous">
 
+<script>
+
+	function validateForm(){
+		var letters = /^[A-Za-z]+$/;
+		
+		
+		clearValidations();
+		
+		let flag = true;
+		
+		var firstName = document.forms["form"]["firstName"].value;
+		var lastName = document.forms["form"]["lastName"].value;
+		var cashBalance = document.forms["form"]["cashBalance"].value;
+		
+		if (firstName == ""){
+			document.getElementById("firstNameValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (!firstName.match(letters)) {
+			document.getElementById("firstNameValidation").innerHTML = "Cannot Have Numbers";
+			flag = false;
+		}
+		
+		if(lastName == ""){
+			document.getElementById("lastNameValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (!lastName.match(letters)) {
+			document.getElementById("lastNameValidation").innerHTML = "Cannot Have Number";
+			flag = false;
+		}
+		
+		if(cashBalance <= 0){
+			document.getElementById("cashBalanceValidation").innerHTML = "Required Field";
+			flag = false;
+		}
+		else if (isNaN(cashBalance)) {
+			document.getElementById("cashBalanceValidation").innerHTML = "Must be a number";
+			flag = false;
+		}
+		return flag;
+		
+	}
+	
+	function clearValidations(){
+		document.getElementById("cashBalanceValidation").innerHTML = "";
+		document.getElementById("lastNameValidation").innerHTML = "";
+		document.getElementById("firstNameValidation").innerHTML = "";
+		
+	}
+</script>
+
+
 <meta charset="ISO-8859-1">
 <title>Add User</title>
 </head>
@@ -46,26 +99,29 @@
 	<main>
 
 	<div class="container">
+	<h1>Add a User</h1>
 	<div style="width: 75%; margin:30px auto auto auto"class ="flex-container">
-		<form class="pure-form pure-form-aligned" th:object="${newUser}"
+	
+	
+		<form class="pure-form pure-form-aligned" name="form" onsubmit="return validateForm()" th:object="${newUser}"
 			th:action="@{/addUser}" method=POST>
 			<fieldset>
 				<div class="pure-control-group">
 					<label for="firstName">First Name:</label> <input id="firstName"
 						type="text" placeholder="First Name" th:field="*{firstName}"> 
-						<span class="pure-form-message-inline">This is a required field.</span>
+						<span style="color:red" class="pure-form-message-inline" id="firstNameValidation"></span>
 				</div>
 				
 				<div class="pure-control-group">
 					<label for="lastName">Last Name:</label> <input id="lastName"
 						type="text" placeholder="Last Name" th:field="*{lastName}"> 
-						<span class="pure-form-message-inline">This is a required field.</span>
+						<span style="color:red" class="pure-form-message-inline" id="lastNameValidation"></span>
 				</div>
 				
 				<div class="pure-control-group">
 					<label for="cashBalance">Cash Balance:</label> <input id="cashBalance"
 						type="text" placeholder="Cash Balance" th:field="*{cashBalance}"> 
-						<span class="pure-form-message-inline">This is a required field.</span>
+						<span style="color:red" class="pure-form-message-inline" id="cashBalanceValidation"></span>
 				</div>
 				
 				<button style="background:#cf0000;" type="submit" class="button-success pure-button">Submit</button>
