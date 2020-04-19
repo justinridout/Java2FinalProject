@@ -64,13 +64,6 @@ public class WebController {
 		return viewAllUsers(model);
 	}
 
-	/*@GetMapping("/addAcorn/{ID}")
-	public String addAcornByUser(@PathVariable("ID") long id, Model model) {
-		User u = repo.findById(id).orElse(null);
-		
-		
-	}*/
-
 	@GetMapping("addUser")
 	public String addNewUser(Model model) {
 		User u = new User();

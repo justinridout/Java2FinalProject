@@ -40,8 +40,14 @@
 		<h1 style="font-family: 'Eczar', serif;">
 			<span th:text="${currentUser.firstName}"></span>'s Acorns
 		</h1>
+		<div class="savingsWidget">
+				Savings Needs: $<span th:text="${currentUser.savingsNeed}"></span></br>
+				<a style="margin: 10px auto 10px auto;" class="button"
+				th:href="@{/addAcornByUser/{ID}(ID=${currentUser.ID})}">Add
+				Acorn</a>
+			</div>
 		<form>
-			<div class="flex-container">
+			<div class="flex-container" >
 				<div class="acornItem" th:each="currentAcorn : ${acorns}">
 					<h3 style="font-family: 'Eczar', serif;">
 						<span th:text="${currentAcorn.name}"></span>
@@ -71,15 +77,11 @@
 					</p>
 
 				</div>
-
-				<!-- <div style="float: right;">
-				Savings Needs: $<span th:text="${currentUser.savingsNeed}"></span>
+			
 			</div>
-			 -->
-			</div>
-			<a style="margin-top: 10px;" class="button"
-				th:href="@{/addAcornByUser/{ID}(ID=${currentUser.ID})}">Add
-				Acorn</a>
+			
+			
+			
 
 		</form>
 	</div>
