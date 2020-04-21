@@ -36,6 +36,9 @@ public class Acorn {
 		this.replacementCost = replacementCost;
 		this.purchaseDate = purchaseDate;
 		this.lifeCycle = lifeCycle;
+		this.ageInMonths = 3;
+		this.remainingLifePercentage = 0;
+		this.actualCashValue = new BigDecimal(0);
 	}
 	
 
