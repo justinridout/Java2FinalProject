@@ -82,5 +82,19 @@ public class WebController {
 		repo.save(user);
 		return viewAllUsers(model);
 	}
+	
+	@GetMapping("/edit/{ID}")
+	public String updateUser(@PathVariable("ID") long ID, Model model) {
+		User u = repo.findById(ID).orElse(null);
+		System.out.println(u.toString());
+		model.addAttribute("newUser", u);
+		return "updateUser";
+	}
+	
+	@PostMapping("/update/ID")
+	public String reviseUser(User u, Model model) {
+		repo.save(u);
+		return "viewAllUsers";
+	}
 
 }
