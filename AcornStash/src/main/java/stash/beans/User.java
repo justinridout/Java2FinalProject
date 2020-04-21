@@ -1,6 +1,7 @@
 package stash.beans;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -22,15 +23,15 @@ public class User {
 	private BigDecimal cashBalance;
 	private BigDecimal savingsNeed;
 	@ElementCollection
-	private List<Acorn> acornList;
+	private List<Acorn> acornList = new ArrayList<Acorn>();
 
 	public User() {
 		super();
 	}
 
-	public User(long iD, String firstName, String lastName) {
+	public User(String firstName, String lastName, BigDecimal cashBalance) {
 		super();
-		ID = iD;
+		this.cashBalance = cashBalance;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -65,11 +66,9 @@ public class User {
 		return lastName;
 	}
 
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 
 	public BigDecimal getCashBalance() {
 		return cashBalance;
@@ -80,10 +79,21 @@ public class User {
 	}
 
 	public BigDecimal getSavingsNeed() {
-		return savingsNeed;
+		//THIS IS BREAKING THE VIEWS IDK WHY
+		/*this.savingsNeed = new BigDecimal(0);
+		if (!this.acornList.isEmpty()) {
+			for (Acorn a : this.acornList) {
+				this.savingsNeed = this.savingsNeed.add((a.getReplacementCost().subtract(a.getActualCashValue())));
+
+			}
+		}
+		*/
+		System.out.println("USING GETTERS: " + this.savingsNeed);
+		return this.savingsNeed;
 	}
 
 	public void setSavingsNeed(BigDecimal savingsNeed) {
+
 		this.savingsNeed = savingsNeed;
 	}
 
@@ -93,6 +103,14 @@ public class User {
 
 	public void setAcornList(List<Acorn> acornList) {
 		this.acornList = acornList;
+	}
+
+	public void addAcorn(Acorn a) {
+		this.acornList.add(a);
+	}
+
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
 	}
 
 	@Override
