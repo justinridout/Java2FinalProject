@@ -80,7 +80,7 @@ public class User {
 	public BigDecimal calcSavingsNeed() {
 		BigDecimal needs = new BigDecimal(0);
 			for (Acorn a : this.acornList) {
-				needs = needs.add((a.getReplacementCost().subtract(a.getActualCashValue())));
+				needs = needs.add(a.getReplacementCost().subtract(a.getActualCashValue()));
 			}
 		
 		return needs;
