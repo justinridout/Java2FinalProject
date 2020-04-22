@@ -76,14 +76,19 @@ public class User {
 	public void setCashBalance(BigDecimal cashBalance) {
 		this.cashBalance = cashBalance;
 	}
+	
+	public BigDecimal calcSavingsNeed() {
+		BigDecimal needs = new BigDecimal(0);
+			for (Acorn a : this.acornList) {
+				needs = needs.add((a.getReplacementCost().subtract(a.getActualCashValue())));
+			}
+		
+		return needs;
+	}
 
 	public BigDecimal getSavingsNeed() {
 		this.savingsNeed = new BigDecimal(0);
-		/*if (!this.acornList.isEmpty() || this.acornList != null) {
-			for (Acorn a : this.acornList) {
-				this.savingsNeed = this.savingsNeed.add((a.getReplacementCost().subtract(a.getActualCashValue())));
-
-			}
+		/*
 		}*/
 		
 		System.out.println("USING GETTERS: " + this.savingsNeed);

@@ -103,8 +103,8 @@
 	<div style="width: 75%; margin:30px auto auto auto"class ="flex-container">
 	
 	
-		<form class="pure-form pure-form-aligned" name="form" onsubmit="return validateForm()" th:object="${newUser}"
-			th:action="@{/update/{ID}(ID=${newUser.ID})}" method=POST>
+		<form class="pure-form pure-form-aligned" name="form" onsubmit="return validateForm()" th:object="${updateUser}"
+			th:action="@{/update/{ID}(ID=${ID})}" method=POST>
 			<fieldset>
 				<div class="pure-control-group">
 					<label for="firstName">First Name:</label> <input id="firstName"

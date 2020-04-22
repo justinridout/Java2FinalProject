@@ -76,7 +76,7 @@
 					<p>
 						Actual Cash Value: <span th:text="${currentAcorn.actualCashValue}"></span>
 					</p>
-
+					 <a class="button" th:href="@{/updateAcorn/{ID}/{name}(ID = ${currentUser.ID}, name = ${currentAcorn.name})}">Edit Acorn</a>
 				</div>
 			
 			</div>

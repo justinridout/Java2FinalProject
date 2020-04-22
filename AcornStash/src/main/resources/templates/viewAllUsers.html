@@ -52,9 +52,9 @@
 						Cash Balance: <span th:text="${currentUser.cashBalance}"></span>
 					</p>
 					<p>
-						Savings Needs: <span th:text="${currentUser.savingsNeed}"></span>
+						Savings Needs: <span th:text="${currentUser.calcSavingsNeed()}"></span>
 					</p>
-					<a class="button" th:href="@{/view/{ID}(ID=${currentUser.ID})}">View
+					<a class="button" style="margin-bottom: 10px" th:href="@{/view/{ID}(ID=${currentUser.ID})}">View
 						User Acorns</a>
 					<a class="button" th:href="@{/edit/{ID}(ID=${currentUser.ID})}">Edit User</a>
 				</div>
