@@ -63,7 +63,7 @@ public class WebController {
 		
 		repo.save(u);
 		
-		return viewAllUsers(model);
+		return viewAcornByUser(u.getID(), model);
 	}
 
 	@GetMapping("addUser")
@@ -76,7 +76,7 @@ public class WebController {
 	@PostMapping("/addUser")
 	public String addNewUser(@ModelAttribute User u, Model model) {
 		repo.save(u);
-		return viewAllUsers(model);
+		return viewAcornByUser(u.getID(), model);
 	}
 	
 	@GetMapping("/edit/{ID}")

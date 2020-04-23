@@ -113,9 +113,7 @@ public class User {
 	}
 
 	public void addAcorn(Acorn a) {
-		if(this.acornList == null) {
-			this.acornList = new ArrayList<Acorn>();
-		}
+		
 		this.acornList.add(a);
 	}
 

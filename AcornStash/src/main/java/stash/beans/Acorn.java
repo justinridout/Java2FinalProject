@@ -78,8 +78,13 @@ public class Acorn {
 		this.replacementCost = replacementCost;
 	}
 
-	public String getPurchaseDate() {
+	public Date getPurchaseDate() {
 		
+		return this.purchaseDate;
+	}
+	
+	public String formatDate() {
+
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
 		c.setTime(purchaseDate);
