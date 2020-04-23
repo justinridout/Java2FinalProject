@@ -34,6 +34,8 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.cashBalance = cashBalance;
+		this.savingsNeed = new BigDecimal(0);
+		this.acornList = new ArrayList<Acorn>();
 	}
 	
 	public User(String firstName, String lastName, BigDecimal cashBalance, BigDecimal savingsNeed, List<Acorn> a) {
@@ -79,17 +81,15 @@ public class User {
 	
 	public BigDecimal calcSavingsNeed() {
 		BigDecimal needs = new BigDecimal(0);
-			for (Acorn a : this.acornList) {
-				needs = needs.add(a.getReplacementCost().subtract(a.getActualCashValue()));
-			}
+		for (Acorn a : this.acornList) {
+			needs = needs.add(a.getReplacementCost().subtract(a.getActualCashValue()));
+		}
 		
 		return needs;
 	}
 
 	public BigDecimal getSavingsNeed() {
 		this.savingsNeed = new BigDecimal(0);
-		/*
-		}*/
 		
 		System.out.println("USING GETTERS: " + this.savingsNeed);
 		return this.savingsNeed;

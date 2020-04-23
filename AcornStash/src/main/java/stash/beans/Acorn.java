@@ -2,9 +2,11 @@ package stash.beans;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -76,13 +78,17 @@ public class Acorn {
 		this.replacementCost = replacementCost;
 	}
 
-	public Date getPurchaseDate() {
-//		LocalDate localDate = purchaseDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//		LocalDate updatedDate = localDate.plusDays(1);
-//		Instant instant = updatedDate.toIns
-//		Date date2 = Date.from(updatedDate.));
-//		return date2;
-		return purchaseDate;
+	public String getPurchaseDate() {
+		
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+		c.setTime(purchaseDate);
+		
+		c.add(Calendar.DATE, 1);
+		
+		this.purchaseDate = c.getTime();
+		
+		return formatter.format(this.purchaseDate);  
 	}
 
 	public void setPurchaseDate(Date purchaseDate) {
@@ -110,23 +116,11 @@ public class Acorn {
 	public BigDecimal getActualCashValue() {
 		System.out.println("Replacement cost: " + replacementCost);
 		System.out.println("Age In Months: " + ageInMonths);
-		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));
-<<<<<<< HEAD
-<<<<<<< HEAD
-		
-		
-		return replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle)));
-=======
-=======
->>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
-			
+		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));			
 		BigDecimal returnValue = replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2, RoundingMode.HALF_UP);
 		
 		return returnValue;
-<<<<<<< HEAD
->>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
-=======
->>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
+
 	}
 
 	public String getCategory() {
