@@ -1,6 +1,10 @@
 package stash.beans;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -22,7 +26,7 @@ public class Acorn {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date purchaseDate;
 	private int lifeCycle;
-	private int ageInMonths = 3;
+	private int ageInMonths;
 	private int remainingLifePercentage;
 	private BigDecimal actualCashValue;	
 		
@@ -39,6 +43,20 @@ public class Acorn {
 		this.ageInMonths = 3;
 		this.remainingLifePercentage = 0;
 		this.actualCashValue = new BigDecimal(0);
+	}
+	
+	//Helper Functions
+	
+	public int convertToAgeInMonths(Date dateToConvert) {
+	    
+	LocalDate date = dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	
+	Period p = date.until(LocalDate.now());		
+	int years = p.getYears();
+	int months = p.getMonths();
+	int totalMonths = years*12 + months;
+	
+	return totalMonths;
 	}
 	
 
@@ -59,6 +77,11 @@ public class Acorn {
 	}
 
 	public Date getPurchaseDate() {
+//		LocalDate localDate = purchaseDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//		LocalDate updatedDate = localDate.plusDays(1);
+//		Instant instant = updatedDate.toIns
+//		Date date2 = Date.from(updatedDate.));
+//		return date2;
 		return purchaseDate;
 	}
 
@@ -75,7 +98,7 @@ public class Acorn {
 	}
 
 	public int getAgeInMonths() {
-		return ageInMonths;
+		return convertToAgeInMonths(this.purchaseDate);
 	}
 
 	public int getRemainingLifePercentage() {
@@ -88,7 +111,16 @@ public class Acorn {
 		System.out.println("Replacement cost: " + replacementCost);
 		System.out.println("Age In Months: " + ageInMonths);
 		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));
-		return replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2);
+<<<<<<< HEAD
+		
+		
+		return replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle)));
+=======
+			
+		BigDecimal returnValue = replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2, RoundingMode.HALF_UP);
+		
+		return returnValue;
+>>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
 	}
 
 	public String getCategory() {
