@@ -112,14 +112,20 @@ public class Acorn {
 		System.out.println("Age In Months: " + ageInMonths);
 		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 		
 		return replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle)));
 =======
+=======
+>>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
 			
 		BigDecimal returnValue = replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2, RoundingMode.HALF_UP);
 		
 		return returnValue;
+<<<<<<< HEAD
+>>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
+=======
 >>>>>>> ca08c32887c68495b846296e4a5046ac293be4e6
 	}
 
