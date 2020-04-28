@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
+<base href="/">
 <link rel="stylesheet" href="../site.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap"
@@ -52,15 +52,17 @@
 						Cash Balance: <span th:text="${currentUser.cashBalance}"></span>
 					</p>
 					<p>
-						Savings Needs: <span th:text="${currentUser.savingsNeed}"></span>
+						Savings Needs: <span th:text="${currentUser.calcSavingsNeed()}"></span>
 					</p>
-					<a class="button" th:href="@{/view/{ID}(ID=${currentUser.ID})}">View
+					<a class="button" style="margin-bottom: 10px" th:href="@{/view/{ID}(ID=${currentUser.ID})}">View
 						User Acorns</a>
+					<a class="button" th:href="@{/edit/{ID}(ID=${currentUser.ID})}">Edit User</a>
+					<a class="button" th:href="@{/delete/{ID}(ID=${currentUser.ID})}">Delete User</a>
 				</div>
 
 			</div>
 			
-			<a style="margin-top: 5px;" href="addUser" class="button">Add New User</a>
+			<a style="margin-top: 5px;" href="../addUser" class="button">Add New User</a>
 		</form>
 	</div>
 	</main>

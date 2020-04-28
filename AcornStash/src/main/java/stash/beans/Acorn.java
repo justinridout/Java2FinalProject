@@ -1,6 +1,12 @@
 package stash.beans;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -22,7 +28,7 @@ public class Acorn {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date purchaseDate;
 	private int lifeCycle;
-	private int ageInMonths = 3;
+	private int ageInMonths;
 	private int remainingLifePercentage;
 	private BigDecimal actualCashValue;	
 		
@@ -36,6 +42,23 @@ public class Acorn {
 		this.replacementCost = replacementCost;
 		this.purchaseDate = purchaseDate;
 		this.lifeCycle = lifeCycle;
+		this.ageInMonths = 3;
+		this.remainingLifePercentage = 0;
+		this.actualCashValue = new BigDecimal(0);
+	}
+	
+	//Helper Functions
+	
+	public int convertToAgeInMonths(Date dateToConvert) {
+	    
+	LocalDate date = dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	
+	Period p = date.until(LocalDate.now());		
+	int years = p.getYears();
+	int months = p.getMonths();
+	int totalMonths = years*12 + months;
+	
+	return totalMonths;
 	}
 	
 
@@ -56,7 +79,21 @@ public class Acorn {
 	}
 
 	public Date getPurchaseDate() {
-		return purchaseDate;
+		
+		return this.purchaseDate;
+	}
+	
+	public String formatDate() {
+
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+		c.setTime(purchaseDate);
+		
+		c.add(Calendar.DATE, 1);
+		
+		this.purchaseDate = c.getTime();
+		
+		return formatter.format(this.purchaseDate);  
 	}
 
 	public void setPurchaseDate(Date purchaseDate) {
@@ -72,7 +109,7 @@ public class Acorn {
 	}
 
 	public int getAgeInMonths() {
-		return ageInMonths;
+		return convertToAgeInMonths(this.purchaseDate);
 	}
 
 	public int getRemainingLifePercentage() {
@@ -84,8 +121,11 @@ public class Acorn {
 	public BigDecimal getActualCashValue() {
 		System.out.println("Replacement cost: " + replacementCost);
 		System.out.println("Age In Months: " + ageInMonths);
-		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));
-		return replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2);
+		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));			
+		BigDecimal returnValue = replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2, RoundingMode.HALF_UP);
+		
+		return returnValue;
+
 	}
 
 	public String getCategory() {

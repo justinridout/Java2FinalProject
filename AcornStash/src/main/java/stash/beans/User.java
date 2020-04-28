@@ -23,7 +23,7 @@ public class User {
 	private BigDecimal cashBalance;
 	private BigDecimal savingsNeed;
 	@ElementCollection
-	private List<Acorn> acornList = new ArrayList<Acorn>();
+	private List<Acorn> acornList;
 
 	public User() {
 		super();
@@ -31,19 +31,20 @@ public class User {
 
 	public User(String firstName, String lastName, BigDecimal cashBalance) {
 		super();
-		this.cashBalance = cashBalance;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.cashBalance = cashBalance;
+		this.savingsNeed = new BigDecimal(0);
+		this.acornList = new ArrayList<Acorn>();
 	}
-
-	public User(String firstName, String lastName, BigDecimal cashBalance, BigDecimal savingsNeed,
-			List<Acorn> acornList) {
+	
+	public User(String firstName, String lastName, BigDecimal cashBalance, BigDecimal savingsNeed, List<Acorn> a) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.cashBalance = cashBalance;
 		this.savingsNeed = savingsNeed;
-		this.acornList = acornList;
+		this.acornList = a;
 	}
 
 	public long getID() {
@@ -77,17 +78,19 @@ public class User {
 	public void setCashBalance(BigDecimal cashBalance) {
 		this.cashBalance = cashBalance;
 	}
+	
+	public BigDecimal calcSavingsNeed() {
+		BigDecimal needs = new BigDecimal(0);
+		for (Acorn a : this.acornList) {
+			needs = needs.add(a.getReplacementCost().subtract(a.getActualCashValue()));
+		}
+		
+		return needs;
+	}
 
 	public BigDecimal getSavingsNeed() {
-		//THIS IS BREAKING THE VIEWS IDK WHY
-		/*this.savingsNeed = new BigDecimal(0);
-		if (!this.acornList.isEmpty()) {
-			for (Acorn a : this.acornList) {
-				this.savingsNeed = this.savingsNeed.add((a.getReplacementCost().subtract(a.getActualCashValue())));
-
-			}
-		}
-		*/
+		this.savingsNeed = new BigDecimal(0);
+		
 		System.out.println("USING GETTERS: " + this.savingsNeed);
 		return this.savingsNeed;
 	}
@@ -98,6 +101,10 @@ public class User {
 	}
 
 	public List<Acorn> getAcornList() {
+		
+		if(this.acornList == null) {
+			this.acornList = new ArrayList<Acorn>();
+		}
 		return acornList;
 	}
 
@@ -106,6 +113,7 @@ public class User {
 	}
 
 	public void addAcorn(Acorn a) {
+		
 		this.acornList.add(a);
 	}
 

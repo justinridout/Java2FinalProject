@@ -1,5 +1,6 @@
 package stash.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import stash.beans.Acorn;
+import stash.beans.UpdateUser;
 import stash.beans.User;
 import stash.repository.AcornRepository;
 
@@ -23,7 +25,7 @@ public class WebController {
 	@GetMapping({ "viewAllUsers" })
 	public String viewAllUsers(Model model) {
 		if (repo.findAll().isEmpty()) {
-			return "index";
+			return addNewUser(model);
 		}
 
 		model.addAttribute("users", repo.findAll());
@@ -61,7 +63,7 @@ public class WebController {
 		
 		repo.save(u);
 		
-		return viewAllUsers(model);
+		return viewAcornByUser(u.getID(), model);
 	}
 
 	@GetMapping("addUser")
@@ -74,13 +76,94 @@ public class WebController {
 	@PostMapping("/addUser")
 	public String addNewUser(@ModelAttribute User u, Model model) {
 		repo.save(u);
-		return viewAllUsers(model);
+		return viewAcornByUser(u.getID(), model);
 	}
-
+	
+	@GetMapping("/edit/{ID}")
+	public String updateUser(@PathVariable("ID") long ID, Model model) {
+		User u = repo.findById(ID).orElse(null);
+		UpdateUser update = new UpdateUser(u.getFirstName(), u.getLastName(), u.getCashBalance());
+		System.out.println(u.toString());
+		model.addAttribute("updateUser", update);
+		
+		return "updateUser";
+	}
+	
 	@PostMapping("/update/{ID}")
-	public String updateUser(User user, Model model) {
+	public String reviseUser(@PathVariable("ID") long ID, UpdateUser u, Model model) {
+		User user = repo.findById(ID).orElse(null);
+		user.setFirstName(u.getFirstName());
+		user.setLastName(u.getLastName());
+		user.setCashBalance(u.getCashBalance());
 		repo.save(user);
 		return viewAllUsers(model);
 	}
+	
+	@GetMapping("/updateAcorn/{ID}/{name}")
+	public String updateAcorn(@PathVariable("ID") long userID, @PathVariable("name") String name, Model model) {
+		User u = repo.findById(userID).orElse(null);
+		Acorn toUpdate = null;
+		int index = 0;
+		for(Acorn a: u.getAcornList()) {
+			if(a.getName().equals(name)) {
+				toUpdate = a;
+				break;
+			}
+			
+			index++;
+		}
+		
+		System.out.println("UPDATING ACORN AT INDEX: " + index);
+		model.addAttribute("acornIndex", index);
+		model.addAttribute("currentUser", u);
+		model.addAttribute("toUpdate", toUpdate);
+		
+		return "updateAcorn";
+	}
+	
+	@PostMapping("/updateAcorn/{ID}/{acornIndex}")
+	public String updateAcorn(@PathVariable("ID") long userID, @PathVariable("acornIndex") int index, Acorn toUpdate, Model model) {
+		User u = repo.findById(userID).orElse(null);
+		int count = 0;
+		
+		for(Acorn a : u.getAcornList()) {
+			if(count == index) {
+				a = toUpdate;
+			}
+			
+			count++;
+		}
+		
+		repo.save(u);
+		
+		return viewAcornByUser(userID, model);
+	}
+	
+	@GetMapping("/delete/{ID}")
+	public String deleteUser(@PathVariable("ID") long id, Model model) {
+		User u = repo.findById(id).orElse(null);
+		repo.delete(u);
+		return viewAllUsers(model);
+	}
+	
+	@GetMapping("/deleteAcorn/{ID}/{name}")
+	public String deleteAcorn(@PathVariable("ID") long userID, @PathVariable("name") String name, Model model) {
+		User u = repo.findById(userID).orElse(null);
+		int index = 0;
+		for(Acorn a: u.getAcornList()) {
+			if(a.getName().equals(name)) {
+				u.getAcornList().remove(index);
+				break;
+			}
+			
+			index++;
+		}
+		
+		repo.save(u);
+		
+		return viewAcornByUser(userID, model);
+	}
+	
+	
 
 }

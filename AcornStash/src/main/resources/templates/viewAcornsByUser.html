@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
+<base href="/">
 <link rel="stylesheet" href="../site.css">
 <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap" rel="stylesheet">
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 
 
 <meta charset="ISO-8859-1">
@@ -60,7 +62,7 @@
 						Replacement Cost: <span th:text="${currentAcorn.replacementCost}"></span>
 					</p>
 					<p>
-						Purchase Date: <span th:text="${currentAcorn.purchaseDate}"></span>
+						Purchase Date: <span th:text="${currentAcorn.formatDate()}"></span>
 					</p>
 					<p>
 						Life Cycle: <span th:text="${currentAcorn.lifeCycle}"></span>
@@ -75,7 +77,8 @@
 					<p>
 						Actual Cash Value: <span th:text="${currentAcorn.actualCashValue}"></span>
 					</p>
-
+					 <a class="button" th:href="@{/updateAcorn/{ID}/{name}(ID = ${currentUser.ID}, name = ${currentAcorn.name})}">Edit Acorn</a>
+					 <a class="button" th:href="@{/deleteAcorn/{ID}/{name}(ID = ${currentUser.ID}, name = ${currentAcorn.name})}">Delete Acorn</a>
 				</div>
 			
 			</div>
