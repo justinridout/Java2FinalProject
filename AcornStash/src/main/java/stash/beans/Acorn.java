@@ -42,7 +42,7 @@ public class Acorn {
 		this.replacementCost = replacementCost;
 		this.purchaseDate = purchaseDate;
 		this.lifeCycle = lifeCycle;
-		this.ageInMonths = 3;
+		this.ageInMonths = convertToAgeInMonths(this.purchaseDate);
 		this.remainingLifePercentage = 0;
 		this.actualCashValue = new BigDecimal(0);
 	}
@@ -113,19 +113,13 @@ public class Acorn {
 	}
 
 	public int getRemainingLifePercentage() {
-		
-		this.remainingLifePercentage = (int) (100 - (((double)ageInMonths/lifeCycle)* 100));
-		return remainingLifePercentage;
+		int remainingLife = (int) (100 - (((double)convertToAgeInMonths(this.purchaseDate)/(double)lifeCycle)* 100));	
+		return remainingLife;
 	}
 
-	public BigDecimal getActualCashValue() {
-		System.out.println("Replacement cost: " + replacementCost);
-		System.out.println("Age In Months: " + ageInMonths);
-		System.out.println("REPLACEMENT COST" + replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))));			
-		BigDecimal returnValue = replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)ageInMonths/lifeCycle))).setScale(2, RoundingMode.HALF_UP);
-		
+	public BigDecimal getActualCashValue() {	
+		BigDecimal returnValue = replacementCost.subtract(replacementCost.multiply(new BigDecimal((double)convertToAgeInMonths(this.purchaseDate)/lifeCycle))).setScale(2, RoundingMode.HALF_UP);
 		return returnValue;
-
 	}
 
 	public String getCategory() {
