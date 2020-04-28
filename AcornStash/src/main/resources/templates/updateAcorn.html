@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="../../site.css">
 <link
 	href="https://fonts.googleapis.com/css2?family=Eczar:wght@500&display=swap"
 	rel="stylesheet">
@@ -118,7 +118,7 @@
 		<div style="width: 75%; margin: 25px auto auto auto"
 			class="flex-container">
 			<form class="pure-form pure-form-aligned" name="form" onsubmit="return validateForm()" th:object="${toUpdate}"
-				th:action="@{/editAcorn/{ID}/{acornIndex}(ID=${currentUser.ID}, acornIndex=${acornIndex})}"
+				th:action="@{/updateAcorn/{ID}/{acornIndex}(ID=${currentUser.ID}, acornIndex=${acornIndex})}"
 				method=POST>
 				<fieldset>
 					<div class="pure-control-group">

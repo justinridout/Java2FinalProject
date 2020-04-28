@@ -136,7 +136,34 @@ public class WebController {
 		
 		repo.save(u);
 		
-		return "viewAllUsers";
+		return viewAcornByUser(userID, model);
 	}
+	
+	@GetMapping("/delete/{ID}")
+	public String deleteUser(@PathVariable("ID") long id, Model model) {
+		User u = repo.findById(id).orElse(null);
+		repo.delete(u);
+		return viewAllUsers(model);
+	}
+	
+	@GetMapping("/deleteAcorn/{ID}/{name}")
+	public String deleteAcorn(@PathVariable("ID") long userID, @PathVariable("name") String name, Model model) {
+		User u = repo.findById(userID).orElse(null);
+		int index = 0;
+		for(Acorn a: u.getAcornList()) {
+			if(a.getName().equals(name)) {
+				u.getAcornList().remove(index);
+				break;
+			}
+			
+			index++;
+		}
+		
+		repo.save(u);
+		
+		return viewAcornByUser(userID, model);
+	}
+	
+	
 
 }
